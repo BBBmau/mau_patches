@@ -1,0 +1,29 @@
+From 50b979060b31dfc7bbb4e7e1e51ad39d2b0bd07c Mon Sep 17 00:00:00 2001
+From: Mauricio Alvarez Leon <alvarez.mauriciotm@gmail.com>
+Date: Sun, 11 May 2025 16:24:22 -0700
+Subject: [PATCH] initial commit of my first ever patch creation
+Signed-off-by: Mauricio Alvarez Leon <alvarez.mauriciotm@gmail.com>
+
+this represents my first patch ever created that passes the
+checkpatch.pl script
+
+---
+ drivers/media/usb/uvc/uvc_driver.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+index 107e0fafd80f..54297c1d0b52 100644
+--- a/drivers/media/usb/uvc/uvc_driver.c
++++ b/drivers/media/usb/uvc/uvc_driver.c
+@@ -2171,6 +2171,8 @@ static int uvc_probe(struct usb_interface *intf,
+ 	if (dev == NULL)
+ 		return -ENOMEM;
+ 
++	pr_info("Mauricio has made a change here, hello!");
++
+ 	INIT_LIST_HEAD(&dev->entities);
+ 	INIT_LIST_HEAD(&dev->chains);
+ 	INIT_LIST_HEAD(&dev->streams);
+-- 
+2.43.0
+
