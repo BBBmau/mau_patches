@@ -1,0 +1,62 @@
+From 138647f10697079c6d8eeb92b7cc136062095c5e Mon Sep 17 00:00:00 2001
+From: Mauricio Alvarez Leon <alvarez.mauriciotm@gmail.com>
+Date: Thu, 15 May 2025 13:21:33 -0700
+Subject: [PATCH] hello_world module
+
+Signed-off-by: Mauricio Alvarez Leon <alvarez.mauriciotm@gmail.com>
+
+
+This is the only patch where it doesn't pass the checkscript.pl due to
+printk being used to output the hello world in dmesg
+---
+ hello_world/Makefile      | 10 ++++++++++
+ hello_world/hello_world.c | 20 ++++++++++++++++++++
+ 2 files changed, 30 insertions(+)
+ create mode 100644 hello_world/Makefile
+ create mode 100644 hello_world/hello_world.c
+
+diff --git a/hello_world/Makefile b/hello_world/Makefile
+new file mode 100644
+index 000000000000..04b3be48ea7f
+--- /dev/null
++++ b/hello_world/Makefile
+@@ -0,0 +1,10 @@
++obj-m := hello_world.o
++KDIR := /lib/modules/$(shell uname -r)/build
++PWD := $(shell pwd)
++
++all:
++	$(MAKE) -C $(KDIR) M=$(PWD) modules
++
++clean:
++	$(MAKE) -C $(KDIR) M=$(PWD) clean
++
+diff --git a/hello_world/hello_world.c b/hello_world/hello_world.c
+new file mode 100644
+index 000000000000..f53c4040ec4b
+--- /dev/null
++++ b/hello_world/hello_world.c
+@@ -0,0 +1,20 @@
++// SPDX-License-Identifier: MIT
++#include <linux/init.h>
++#include <linux/module.h>
++
++
++static int hello_module(void)
++{
++	printk("Hello world from the hello_world module!\n");
++	return 0;
++}
++
++static void clean_module(void)
++{
++	printk("Goodbye world, until next time!\n");
++}
++
++MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("Made by Mauricio");
++module_init(hello_module);
++module_exit(clean_module);
+-- 
+2.43.0
+
